@@ -12,7 +12,13 @@ Root node, creates json file, bridge between home network/Wifi Network and mesh 
 #### Services:
 * Async TCP Webserver: Delivers current sensor values via json, accepts GET requests
 * TEMP Update: **Broadcast "TXX.XX"**
-* GET REQUESTS: LOWER *(ON)*:  **Broadcast "O"**, LOWER *(OFF)*:  **Broadcast "E"**
+
+#### POSSIBLE GET REQUESTS:
+
+Example Reqeust: 192.168.0.50?LOWER=ON
+
+* LOWER *(ON)*:  **Broadcasts "O"**, Lower Floor Lights
+* LOWER *(OFF)*:  **Broadcast "E"**, Lower Floor Lights
 
 ### Temp-Module
 To Do/Currently not working
