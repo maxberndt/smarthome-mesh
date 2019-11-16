@@ -7,7 +7,7 @@ Based on painlessMesh
 Root node, creates json file, bridge between home network/Wifi Network and mesh network.
 
 #### Pinout: 
-* -
+* No Pins used
 
 #### Services:
 * Async TCP Webserver: Delivers current sensor values via json, accepts GET requests
