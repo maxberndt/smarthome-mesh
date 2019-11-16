@@ -2,6 +2,8 @@
 Based on painlessMesh
 
 ## Modules + Pinout
+### Pinout ESP 32 Joy It
+![pinout_epc32](https://github.com/maxberndt/smarthome-mesh/raw/master/pinout_epc32.PNG)
 
 ### Bridge Module
 Root node, creates json file, bridge between home network/Wifi Network and mesh network.
