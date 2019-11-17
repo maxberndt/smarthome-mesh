@@ -27,22 +27,29 @@ void nodeTimeAdjustedCallback(int32_t offset) {
 }
 
 void alarmSound(int c){
-  unsigned char i, j ;
+
   for(int i=0;i<c;i++){
-    for (i = 0; i <500; i++){
+    for (int j = 0; j < 500; j++){
         digitalWrite (SPEAKER, HIGH) ;// send voice
         delay (1) ;// Delay 1ms
         digitalWrite (SPEAKER, LOW) ;// do not send voice
         delay (1) ;// delay ms
     }
-    delay(500);
+    delay(200);
+    
+    for (int j = 0; j < 500; j++){
+        digitalWrite (SPEAKER, HIGH) ;// send voice
+        delay (2) ;// Delay 1ms
+        digitalWrite (SPEAKER, LOW) ;// do not send voice
+        delay (2) ;// delay ms
+    }
   }
 }
 
 void setup() {
   Serial.begin(115200);
-  pinMode (analog, INPUT) ;
-  pinMode (speaker, OUTPUT);
+  pinMode (ANALOG, INPUT) ;
+  pinMode (SPEAKER, OUTPUT);
 
 //mesh.setDebugMsgTypes( ERROR | MESH_STATUS | CONNECTION | SYNC | COMMUNICATION | GENERAL | MSG_TYPES | REMOTE ); // all types on
   mesh.setDebugMsgTypes( ERROR | STARTUP );  // set before init() so that you can see startup messages
@@ -58,9 +65,9 @@ void loop() {
   // it will run the user scheduler as well
   mesh.update();
   
-  if(analogRead(ANALOG) < 100){
+  if(analogRead(ANALOG) < 50){
     mesh.sendBroadcast("F");
-    alarmSound(20);
+    alarmSound(5);
   }
   
 }
