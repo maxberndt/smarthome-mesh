@@ -6,9 +6,10 @@
 #define   MESH_PREFIX     "SmartHomeMesh"
 #define   MESH_PASSWORD   "meshit2thelimit"
 #define   MESH_PORT       5555
+#define   RED_LED         4 
 
-#define   STATION_SSID     "OnePlus 6T"
-#define   STATION_PASSWORD "" //Insert
+#define   STATION_SSID     "BerndtWifi"
+#define   STATION_PASSWORD "sommerferien" //Insert
 
 #define HOSTNAME "SMARTHOME"
 
@@ -30,11 +31,9 @@ bool fireAlarm = false;
 
 void setup() {
   Serial.begin(115200);
-
+  pinMode(RED_LED, OUTPUT);
+  
   mesh.setDebugMsgTypes( ERROR | STARTUP | CONNECTION );  // set before init() so that you can see startup messages
-
-  // Channel set to 6. Make sure to use the same channel for your mesh and for you other
-  // network (STATION_SSID)
   mesh.init( MESH_PREFIX, MESH_PASSWORD, MESH_PORT, WIFI_AP_STA, 11);
   mesh.onReceive(&receivedCallback);
 
@@ -61,26 +60,35 @@ void setup() {
     " }"
 
     );
-    if (request->hasArg("UPPER")){
-      Serial.println(request->arg("UPPER"));
+    if (request->hasArg("LOWER")){
+      Serial.println(request->arg("LOWER"));
       
-      //String msg = request->arg("BROADCAST");
-      if(request->arg("UPPER") == "ON"){
+      if(request->arg("LOWER") == "ON"){
         mesh.sendBroadcast("O");
-        lights_upperFloor = true;
+        lights_groundFloor = true;
         Serial.println("Sent request to activate lights.");
       }
 
-      if(request->arg("UPPER") == "OFF"){
+      if(request->arg("LOWER") == "OFF"){
         mesh.sendBroadcast("E");
-        lights_upperFloor = false;
+        lights_groundFloor = false;
         Serial.println("Sent request to deactivate lights.");
       }
       
     }
+
   });
   server.begin();
 
+}
+
+void blinkLED(int led, int c, int d){
+  for(int i=0;i<c;i++){
+    digitalWrite(led, HIGH);
+    delay(d);
+    digitalWrite(led, LOW);
+    delay(d);
+  }
 }
 
 void loop() {
@@ -93,10 +101,16 @@ void loop() {
 
 void receivedCallback( const uint32_t &from, const String &msg ) {
   Serial.printf("bridge: Received from %u msg=%s\n", from, msg.c_str());
+  
   if(msg[0] == 'T'){
     temp = msg.substring(1).toFloat();
     Serial.printf("Temp Updateted to %f", temp);
   }  
+
+  else if(msg[0] == 'F'){
+    blinkLED(RED_LED, 10, 500);
+    Serial.printf("FIRE ALARM!");
+  } 
   
 }
 
