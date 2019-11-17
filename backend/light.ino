@@ -10,15 +10,17 @@ Scheduler userScheduler; // to control your personal task
 painlessMesh  mesh;
 
 // Needed for painless library
-void receivedCallback( uint32_t from, String &msg ) {
+void receivedCallback(uint32_t from, String &msg) {
 
   //Lights on
-  if(msg[0]='O'){
-    digitalWrite(lightsLower, HIGH);
+  if(msg[0] == 'O'){
+    Serial.printf("Lower Lights on!");
+    digitalWrite(LIGHTSLOW, HIGH);
   }
 
-  if(msg[0]='E'){
-    digitalWrite(lightsLower, LOW);
+  else if(msg[0] == 'E'){
+    Serial.printf("Lower Lights off!");
+    digitalWrite(LIGHTSLOW, LOW);
   }
   
   Serial.printf("startHere: Received from %u msg=%s\n", from, msg.c_str());
@@ -38,8 +40,8 @@ void nodeTimeAdjustedCallback(int32_t offset) {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(lightsUpper, OUTPUT);
-  pinMode(lightsLower, OUTPUT);
+  pinMode(LIGHTSUP, OUTPUT);
+  pinMode(LIGHTSLOW, OUTPUT);
   
   mesh.setDebugMsgTypes( ERROR | STARTUP );  // set before init() so that you can see startup messages
 
