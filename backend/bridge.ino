@@ -9,7 +9,7 @@
 #define   RED_LED         4 
 
 #define   STATION_SSID     "BerndtWifi"
-#define   STATION_PASSWORD "sommerferien" //Insert
+#define   STATION_PASSWORD "" //Insert
 
 #define HOSTNAME "SMARTHOME"
 
