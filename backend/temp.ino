@@ -27,7 +27,7 @@ Task taskSendMessage( TASK_SECOND * 5 , TASK_FOREVER, &sendMessage );
 
 double getTemp() {
   double x = analogRead(sensor);
-  double temp = ((0.000011306713 * x * x) - (0.05060512 * x) + 53.995638);
+  double temp = ((0.000011306713 * x * x) - (0.05260512 * x) + 53.995638);
   return temp;
 }
 
