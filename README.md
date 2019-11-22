@@ -23,7 +23,10 @@ Example Reqeust: 192.168.0.50?LOWER=ON
 * LOWER *(OFF)*:  **Broadcast "E"**, Lower Floor Lights
 
 ### Temp-Module
-To Do/Currently not working
+Measures Temperature and sends **Broadcast "TXX.XX"** with current temp value every 5 seconds.
+
+#### Pinout
+* A0/D36: Desc: Analog Input for Sensor
 
 ### Flame Sensor Module
 Detects infrared light with a wavelength ranging from 700nm to 1000nm (emitted by fire). Alarm sound and **Broadcast "F"** if fire detected.
